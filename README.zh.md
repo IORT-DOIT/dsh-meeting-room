@@ -7,6 +7,14 @@
 - 本机安装位置：`C:\Users\uyiop\dsh\dsh-meeting-room`，profile 里用 `link:C:/Users/uyiop/dsh/dsh-meeting-room` 引用它。
 - **桌面上不再有任何插件源码或会议产物**（v2 的桌面临时目录已废弃）。**与会者会话自己的 cwd 是桌面**，但 **v14 起与会者写的顶层文件会被自动收进房间「附件/」**（插件在与会者 agent 作用域注册影子文件工具 + `os.tmpdir()` 暂存区 + 本轮结束回搬，见 §4.4 与 `docs/v14-方案.md`）；v13 的那句「写房间 `附件/`」提示在沙箱下执行不了，v14 已改成可执行的「直接以相对文件名保存即可」。
 
+## 怎么工作的（示意图）
+
+![DSH 会议室：它是怎么工作的](docs/images/how-it-works.png)
+
+![文件是怎么自动进「附件/」的](docs/images/file-archive.png)
+
+> 两张图由 `docs/` 里的实现说明生成（英文版：`docs/images/*.en.png`）。真机截图见 §4 各条对应的说明；如果你要对外发帖，这两张加三张真机截图就够用了。
+
 ## 0. 需求 → 落地位置
 
 ### 0.1 v4 的六条
@@ -1054,6 +1062,7 @@ node .\selftest\run.mjs
   `package.json`（**`version` = `0.18.0`、15396 B / 55 非空行 / SHA1 `8DFA48C839C96B19474BEE73023F16FED01690E1`** —— 发布到 GitHub 时补齐发布元数据后的快照；v18 定稿时 14912 B / 55 非空行 / SHA1 `B8EF9041F11B3C5528AAF8CBAE6E143818809C9D`；v17 基线 `0.17.0` / 13716 B / 55 非空行 / SHA1 `2C50E087685A40C3FD8876D3949C7544E9B2E391`；v16 基线 `0.16.0` / 12232 B / 55 非空行 / SHA1 `C9509186106F47DCA6D410589284D547F62796A4`；v15 基线 9298 B / 55 非空行 / SHA1 `37A577C1049605EF609C5405855BA688CB11ECE3`；v14 基线 7934 B / 55 非空行 / SHA1 `D04EA4860BEE4CDE62C0F4C701ABFF0EF427FA5D`；v13 基线 6610 B / 55 行 / SHA1 `1A651058774163A4B644B6C92EB6D1647DBB006B`；v12 基线 5220 B / `3B29DDCC8D2D2883C7744EA0EE0DE063553694D7`；v11 基线 4477 B / `D673D97E4978AE40B9A413EE53405684D5DA7EAC`；v8 基线 3465 B / 55 行 / `3FA8072A0B2FF0DDE38E8AC02AFE4C5B28338483` / `0.8.0`）、
   `README.zh.md`（**v18 快照（写下 §13.16 之前）：207396 B / 912 非空行 / SHA1 `50DB20BE16FA065DE955926D1803E047A54A8EB8`** —— 本文件；v17 快照（写下 §13.15 之前）：192514 B / 877 非空行 / SHA1 `F1A6108E9B7992A8B63AABBE0F4BE9A94F7D6B27`；v15 快照（写下 §13.13 之前）：169392 B / 827 非空行 / SHA1 `8A6A70A317C84B2EB9BC2AE806A5C0CBCA779BC3`；v14 快照（写下 §13.12 之前）是 154304 B / 797 非空行 / SHA1 `1B1FC22B98C0E7B30923CDD651F70CE0DCD52930`；v13 快照（写下 §13.11 之前）是 130969 B / 745 非空行 / SHA1 `88AB906B4492A1B94588FE1BD0789304A739791D`。**自指说明**：行数是**非空行**口径；字节 / SHA1 是**写下指纹这一句之前**的快照，写入后本文件必然再变（README 不作为行为证据，行为证据是源码 + 自测））、
   `selftest/run.mjs`（**v18 定稿：`335258 B / 5521 非空行 / SHA1 BC477D46AD6E4AB97A67D377C6BA10EB3B42D68B`**：`合计 525 项：通过 525，失败 0`、exit 0、12 秒返回，三次独立全量跑一致；v18 收尾前（未含「显式退出」一行）：`334756 B / 5516 非空行 / SHA1 35674F2AA752A0CF704B68D178C600DBFD6F83AC`；v17 定稿：`330389 B / 5452 非空行 / SHA1 0D63FD585710207A0B27A19498FCFD5A1C56D8EB`：`合计 519 项：通过 519，失败 0`、exit 0；v16 定稿：`318683 B / 5245 非空行 / SHA1 68C4036567606FBEC080A5034A9490B89F58635C`：`合计 501 项：通过 501，失败 0`、exit 0；v16 收尾前（未含 ⑥ 行为级探针）`315162 B / 5196 非空行 / D0A24008674CA673D36CD11258E2ED2B9762989B`：`498/498/0`；v15 基线 `309795 B / 5121 非空行 / 775152E0DAB2BED25211AA08059E1A21E0433D63`；v14 基线 `300822 B / 4973 非空行 / 18E0EFE98F1969ECFDB0A429095BF1A0832DCCA2`；v13 基线 `288515 B / 4781 非空行 / D82175EAD9A4454F416DEAD24D40659914FD49BA`；v12 基线 `269244 B / 4506 行 / 56CEBC4309B4964ABF14AE7405D95855A97F0670`）。
+- **发布到 GitHub 的仓库快照（2026-10-01）**：仓库 <https://github.com/IORT-DOIT/dsh-meeting-room>（Public，MIT），首个提交 `d7a3b10`（37 个文件），`main` 分支；tag `v0.18.0` 与同名 Release 指向含 `CHANGELOG.md` 与两张示意图的最后一次文档提交（推送后的 SHA 以 `git log --oneline` 为准）。随仓库新增：`README.md`（英文首页，6980 B / GitHub 自动渲染）、`LICENSE`（MIT，`Copyright (c) 2026 IORT-DOIT`）、`.gitignore`（排除 `node_modules/`、`out-*.txt`、`.probe-*`，以及内部草稿 `_cleanup-*.md` / `交接-给创造模式会话.md`）、`CHANGELOG.md`、`docs/images/how-it-works{,.en}.png` 与 `docs/images/file-archive{,.en}.png`（中英各一套示意图，由 `Pillow` 脚本按本文档的实现口径生成，**不是真机截图**）；`package.json` 补齐发布元数据（去 `private`，加 `license`/`author`/`repository`/`homepage`/`bugs`/`keywords`，`files` 加 `README.md`/`LICENSE`）后 **15396 B / 55 非空行 / SHA1 `8DFA48C839C96B19474BEE73023F16FED01690E1`**；仓库话题含 `dsh-plugin`（插件社区收录条件）。
 - **端点点表只列 `index.js` 里真实存在的 case**。下面几条容易记错，已按实现校正并写进正文，别再按旧印象使用：
   1. 重开只有 `POST /rooms/:id/reopen`（`by` 选 `user` / `member`）；**没有** `/reopen-request` 端点，与会者发请求就用 `by:'member'` 或 `room_request_reopen` 工具；
   2. v1 兼容写法是 `/dsh-room/<旧端点>`（映射到默认房间）；**没有** `/dsh-meeting-room` 前缀；

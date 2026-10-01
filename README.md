@@ -19,6 +19,14 @@ to B, paste B's revision back to A, then write the summary yourself. This plugin
 meeting: rooms with goals, one append-only transcript everybody sees, files that land in the room
 folder, and a recorder that writes the conclusion from the full record.
 
+## How it works
+
+![How the DSH meeting room works](docs/images/how-it-works.en.png)
+
+![How files land in Attachments/](docs/images/file-archive.en.png)
+
+<sub>Diagrams generated from the docs (Chinese versions: [`docs/images/`](docs/images)).</sub>
+
 ## Features
 
 - **Rooms with goals, records and folders.** One sidebar entry; every room keeps a serial goal list,
@@ -130,6 +138,7 @@ implementation and honest limitations live in [`docs/`](docs) (`v2` … `v18`).
 
 - [README.zh.md](README.zh.md) — full Chinese documentation (install, usage, HTTP endpoints, config,
   troubleshooting, per-version change log)
+- [CHANGELOG.md](CHANGELOG.md) — what each released version changed on the outside
 - [docs/](docs) — design/forensics notes per version (`v18-方案.md` is the latest)
 - [docs/发布文案.md](docs/发布文案.md) — release copy for the community post
 
