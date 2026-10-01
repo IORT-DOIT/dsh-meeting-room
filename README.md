@@ -27,6 +27,20 @@ folder, and a recorder that writes the conclusion from the full record.
 
 <sub>Diagrams generated from the docs (Chinese versions: [`docs/images/`](docs/images)).</sub>
 
+## Screenshots
+
+Real UI, demo data: the room list, the planning drawer (recorder prompt, thinking level, file policy,
+meeting controls) and the read-only file panel.
+
+![Room list and meeting results](docs/images/shot-rooms.png)
+
+![Planning drawer](docs/images/shot-panel.png)
+
+![File panel](docs/images/shot-files.png)
+
+<sub>Taken from a live DSH session; the user name, room names, goal text and file names were replaced
+with demo values before publishing.</sub>
+
 ## Features
 
 - **Rooms with goals, records and folders.** One sidebar entry; every room keeps a serial goal list,

@@ -54,5 +54,8 @@ git clone https://github.com/IORT-DOIT/dsh-meeting-room.git
 ### 文档
 
 - [README.md](README.md)（英文首页）· [README.zh.md](README.zh.md)（中文完整文档）
+- 界面速览：`docs/images/how-it-works{,.en}.png`、`docs/images/file-archive{,.en}.png`（示意图）
+  与 `docs/images/shot-rooms.png` / `shot-panel.png` / `shot-files.png`（**真机截图**，发布前已脱敏：
+  用户名、房名、目标片段与真实文件名都换成演示值）
 - 逐版取证与实现：`docs/v2-API.md` … `docs/v18-方案.md`
 - 用于发帖 / 上架的介绍文案：[docs/发布文案.md](docs/发布文案.md)
