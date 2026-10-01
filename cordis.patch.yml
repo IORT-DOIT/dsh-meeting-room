@@ -1,0 +1,13 @@
+# dsh-meeting-room —— 会议室（Host 半区 + 浏览器半区）
+#
+# 用法：把本包整个目录放到 profile 的 node_modules 下，然后把这行 insert 追加到
+#   C:\Users\uyiop\.dsh\profiles\desktop\cordis.patch.yml
+- insert:
+    - id: dsh-meeting-room
+      name: 'dsh-meeting-room'
+      # config 全部可选，默认值见 index.js 的 Config
+      # config:
+      #   root: 'C:\Users\uyiop\.dsh\meeting-room'
+      #   roomId: 'main'
+      #   maxReadMessages: 40
+      #   maxReadChars: 40000

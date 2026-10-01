@@ -1,0 +1,20 @@
+# 依赖与安装产物
+node_modules/
+package-lock.json
+pnpm-lock.yaml.bak
+
+# 运行/调试产物
+*.log
+out-*.txt
+.probe-*
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
+
+# 内部草稿（不随仓库分发）
+_cleanup-*.md
+交接-给创造模式会话.md
