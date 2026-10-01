@@ -29,8 +29,12 @@ folder, and a recorder that writes the conclusion from the full record.
 
 ## Screenshots
 
-Real UI, demo data: the room list, the planning drawer (recorder prompt, thinking level, file policy,
-meeting controls) and the read-only file panel.
+Real UI. The first one is a live room, published as-is with the room owner's consent (the transcript is
+a real discussion). The other three show the room list, the planning drawer (recorder prompt, thinking
+level, file policy, meeting controls) and the read-only file panel, with the user name, room names, goal
+text and file names replaced by demo values.
+
+![Room view: transcript on the left, meeting results and review buttons on the right](docs/images/shot-room-view.png)
 
 ![Room list and meeting results](docs/images/shot-rooms.png)
 
@@ -38,8 +42,8 @@ meeting controls) and the read-only file panel.
 
 ![File panel](docs/images/shot-files.png)
 
-<sub>Taken from a live DSH session; the user name, room names, goal text and file names were replaced
-with demo values before publishing.</sub>
+<sub>Taken from live DSH sessions. In the last three, the user name, room names, goal text and file names
+were replaced with demo values before publishing.</sub>
 
 ## Features
 
