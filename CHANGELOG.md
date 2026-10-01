@@ -40,6 +40,9 @@ git clone https://github.com/IORT-DOIT/dsh-meeting-room.git
 
 - 自测 **525 项全绿**（12 秒跑完，含行为级断言与源码形状断言）：`node selftest/run.mjs`。
 - 只挂三样东西：`/dsh-room` 路由、13 个工具、一个客户端面板；**不修改宿主代码**。
+- **从 GitHub 克隆下来跑自测同样 525/525/0**：仓库带 `.gitattributes`（统一 LF 检出，
+  二进制资源例外），且自测的形状断言已对 CRLF 检出做兼容（剥离行注释按 `/\r?\n/` 切行、
+  读客户端源码时归一换行）—— 下载 zip 或 `core.autocrlf=true` 的机器也不会误报。
 
 ### 已知边界
 

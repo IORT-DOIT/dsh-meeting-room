@@ -1,0 +1,12 @@
+# 统一按 LF 检出：插件源码里有「源码形状」自测断言，CRLF 检出会让按行切分的注释剥离失配。
+# （自测已对 CRLF 做兼容，见 selftest/run.mjs 的 stripLineComments；这里再保证检出字节稳定。）
+* text=auto eol=lf
+
+# 二进制资源不参与换行归一化
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.xlsx binary

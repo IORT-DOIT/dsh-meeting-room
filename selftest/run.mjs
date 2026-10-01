@@ -3862,7 +3862,10 @@ await closeServer(server)
 
 section('客户端 client/client.js（v6 冻结快照）：单入口 / 面板内导航 / 页头无人数与记录员 chip / 自带对话框 / 邀请 / 气泡 / 文件抽屉 / 滚动策略')
 
-const clientSrc = fs.readFileSync(path.join(HERE, '..', 'client', 'client.js'), 'utf8')
+// index.js / client.js 的形状断言都基于「按字符切片」的片段（fnBody(name, span)），
+// 若检出是 CRLF（Windows 上 `git clone` 的默认行为，或下载 zip），同样的 span 会少覆盖若干行内容，
+// 断言就会假阴性。这里统一归一成 LF，让形状断言与检出换行无关（LF 检出下结果完全不变）。
+const clientSrc = fs.readFileSync(path.join(HERE, '..', 'client', 'client.js'), 'utf8').replace(/\r\n/g, '\n')
 // 取某个函数的源码片段（断言 v4 形状用；span 给足，避免括号匹配的脆弱性）
 const fnBody = (name, span = 900) => {
   const at = clientSrc.indexOf(`function ${name}(`)
@@ -3960,7 +3963,11 @@ check(
 // v4 的「N/M 人」在线人数 chip 与「记录员（内置 AI）」chip 都从页头删掉（成员在线状态与「记录员」
 // 角色小字仍在与会者区，见下面的 member.role === 'recorder' 断言；记录员身份说明仍在策划抽屉）。
 // v15③ 起页头按钮收成一个右栏开关，「会议文件」这个字面量在开关的收起态上。
-const stripLineComments = (src) => src.split('\n').map((line) => line.replace(/\/\/.*$/, '')).join('\n')
+// 注意：JS 的 `.` 不匹配 \r，`$` 也不在 \r 前成立 —— 若源码是 CRLF（Windows 上 `git clone` 的
+// 默认行为，或下载 zip），`split('\n')` 出来的每行末尾会带 \r，`/\/\/.*$/` 就整条失配，
+// 行注释不会被剥掉，下面两条「注释里提到历史字面量不算违规」的形状断言会误报。
+// 所以这里按 /\r?\n/ 切行：LF 与 CRLF 两种检出都要能跑通。
+const stripLineComments = (src) => src.split(/\r?\n/).map((line) => line.replace(/\/\/.*$/, '')).join('\n')
 // v6③：旧投递档位文案要从「代码」里消失；注释里提到历史不违规（client.js:1207 的 v6 注释就写着「只归档」）。
 const clientCode = stripLineComments(clientSrc)
 const headerSrc = stripLineComments((() => {
